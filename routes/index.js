@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // Require our controllers.
-const pokemon_controller = require('../controllers/pokemonController');
+var pokemon_controller = require('../controllers/pokemonController');
 
 
 /* GET home page. */
@@ -17,14 +17,14 @@ router.get('/pkmn/create', pokemon_controller.pokemon_create_get);
 // POST create Pokemon page
 router.post('/pkmn/create', pokemon_controller.pokemon_create_post);
 
-// GET pokemon details
-router.get('/pkmn/:id/details', pokemon_controller.pokemon_get);
+// GET pokemon profile
+router.get('/pkmn/:id/profile', pokemon_controller.pokemon_get);
 
-// POST pokemon details
-router.post('/pkmn/:id/details', pokemon_controller.pokemon_update_post);
+// POST pokemon profile
+router.post('/pkmn/:id/profile', pokemon_controller.pokemon_update_post);
 
 // POST delete pokemon
-router.post('/pkmn/:id/details', pokemon_controller.pokemon_update_post);
+router.post('/pkmn/:id/profile', pokemon_controller.pokemon_update_post);
 
 // // GET catalog home page.
 // router.get('/', book_controller.index);  

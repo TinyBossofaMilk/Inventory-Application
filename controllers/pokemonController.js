@@ -1,11 +1,6 @@
-// var Book = require('../models/book');
-// var Author = require('../models/author');
-// var Genre = require('../models/genre');
-// var BookInstance = require('../models/bookinstance');
-
 const Pokemon = require('../models/pokemon');
 const Type = require('../models/type');
-const Ability = require('../models/abilities');
+const Ability = require('../models/ability');
 
 const { body, validationResult } = require("express-validator");
 
@@ -26,14 +21,14 @@ exports.pokemon_get = (req, res) => {
     res.send("not yet implemented")
 };
 
-//GET add pokemon to the archive
+//GET create pokemon page
 exports.pokemon_create_get = (req, res) => {
-    res.send("not yet implemented")
+    res.render('pokemon-form');
 };
 
-//POST add pokemon to the archive
+//POST create pokemon page
 exports.pokemon_create_post = (req, res) => {
-    res.send("not yet implemented")
+    res.send("not yet implemented");
 };
 
 // delete a pokemon

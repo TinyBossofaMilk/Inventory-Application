@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= title
+  form(action="POST")
+    label(for='name') Name:
+    input#name(type='text')
