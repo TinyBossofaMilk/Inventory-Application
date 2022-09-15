@@ -3,5 +3,34 @@ extends layout
 block content
   h1= title
   form(action="POST")
-    label(for='name') Name:
-    input#name(type='text')
+    div.form-group
+      label(for='name') Name:
+      input#name(type='text' name='name')
+
+    div.form-group
+      label(for='type') Type: 
+      input#type(type='select' name='type')
+
+    div.form-group
+      label(for='evolvesFrom')
+      input#evolvesFrom(type='search' name='text')
+
+    div.form-group
+      label(for='evolvesTo')
+      input#evolvesTo(type='search' name='text')
+
+    div.form-group
+      label(for='desc')
+      input#desc(type='text' name='desc')
+    
+    div.form-group
+      label(for='ability')
+      input#ability(type='select' name='ability')
+
+    div.form-group
+      label(for='height')
+      input#height(type='number' name='height')
+
+    div.form-group
+      label(for='weight')
+      input#weight(type='number' name='weight')

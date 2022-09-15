@@ -1,4 +1,25 @@
-// #! /usr/bin/env node
+#! /usr/bin/env node
+
+const async = require('async');
+const Pokemon = require('../models/pokemon');
+const Type = require('../models/type');
+const Ability = require('../models/ability');
+
+var abilities = [];
+var type = [];
+var pkmn = [];
+
+function createAbility(name, desc){
+    var newAbility = new Ability({name: name, desc:desc});
+};
+
+function createType(name, strengths, weaknesses){
+
+};
+
+function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, weight){
+
+}
 
 // console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
 
