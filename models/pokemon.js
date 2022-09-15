@@ -7,10 +7,10 @@ var Schema = mongoose.Schema;
 
 var PokemonSchema = new Schema({
     name: {type: String},
-    type: {type: Schema.Types.ObjectID, ref:'type'},
-    ability: {type: Schema.Types.ObjectID, ref:'ability'},
-    evolvesFrom: {type: Schema.Types.ObjectID, ref: 'pokemon'},
-    evolvesTo: {type: Schema.Types.ObjectID, ref: 'pokemon'},
+    type: {type: Schema.ObjectId, ref:'type'},
+    ability: {type: Schema.ObjectId, ref:'ability'},
+    evolvesFrom: {type: Schema.ObjectId, ref: 'pokemon'},
+    evolvesTo: {type: Schema.ObjectId, ref: 'pokemon'},
     desc: {type: String},
 
     height: {type: Number, min: 0},
@@ -20,8 +20,9 @@ var PokemonSchema = new Schema({
 PokemonSchema
 .virtual('url')
 .get(function () {
-    return '/catalog/pkmn-detail/'
+    return '/catalog/pkmn-detail'
 });
+// author: { type: Schema.ObjectId, ref: 'Author', required: true },
 
 // Export model.
 module.exports = mongoose.model('Pokemon', PokemonSchema);

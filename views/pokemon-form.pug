@@ -1,36 +1,37 @@
 extends layout
 
 block content
-  h1= title
   form(action="POST")
     div.form-group
       label(for='name') Name:
-      input#name(type='text' name='name')
+      input#name(type='text' name='name' required='true')
 
     div.form-group
       label(for='type') Type: 
       select#type(type='select' name='type')
 
     div.form-group
-      label(for='evolvesFrom')
+      label(for='evolvesFrom') Evolves From:
       input#evolvesFrom(type='search' name='text')
 
     div.form-group
-      label(for='evolvesTo')
+      label(for='evolvesTo') Evolves To:
       input#evolvesTo(type='search' name='text')
 
     div.form-group
-      label(for='desc')
+      label(for='desc') Description:
       input#desc(type='text' name='desc')
     
     div.form-group
-      label(for='ability')
+      label(for='ability') Ability:
       select#ability(type='select' name='ability')
 
     div.form-group
-      label(for='height')
+      label(for='height') Height:
       input#height(type='number' name='height')
 
     div.form-group
-      label(for='weight')
+      label(for='weight') Weight:
       input#weight(type='number' name='weight')
+
+    button(type='submit') Submit

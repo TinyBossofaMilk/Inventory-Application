@@ -8,7 +8,7 @@ var async = require('async');
 
 // home page
 exports.index = function(req, res) {
-    res.send("not yet implemented")
+    res.render("home");
 };
 
 // pokemon search page

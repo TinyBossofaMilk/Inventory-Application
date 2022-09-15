@@ -9,17 +9,34 @@ var abilities = [];
 var type = [];
 var pkmn = [];
 
-function createAbility(name, desc){
-    var newAbility = new Ability({name: name, desc:desc});
+function createAbilityObj(name, desc){
+    return new Ability({name: name, desc:desc});
 };
 
-function createType(name, strengths, weaknesses){
-
+function createTypeObj(name, matchups){
+    return new Type({name: name, matchups: matchups});
 };
 
 function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, weight){
+    
+};
 
-}
+
+// types
+// ("normal", [{"rock": 0.5, "ghost": 0, "steel": 0.5}])
+// ("fire", [{"fire":0.5, "water": 0.5, "green":2, "ice":2, "bug":2, "rock":0.5, "dragon":0.5, "steel":2}])
+
+
+// abilities
+// ("sturdy", "It cannot be knocked out with one hit.")
+// ("keen eye", "Prevents other Pokémon from lowering accuracy.")
+// ("Levitate", "Gives immunity to Ground type moves.")
+// ("Intimidate", "Lowers the foe's Attack stat.")
+// ("Inner Focus", "The Pokémon is protected from flinching.")
+// ("Blaze", "Powers up Fire-type moves in a pinch.")
+// ("Overgrow", "Powers up Grass-type moves in a pinch.")
+// ("Torrent", "Powers up Water-type moves in a pinch.")
+
 
 // console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
 

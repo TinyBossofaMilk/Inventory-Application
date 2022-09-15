@@ -21,8 +21,7 @@ const PKMNTYPES=[
 
 var TypeSchema = new Schema({
     name: {type: String, enum: PKMNTYPES},
-    strengths: [{type: Schema.Types.ObjectID, ref: 'type'}],
-    weaknesses: [{type: Schema.Types.ObjectID, ref: 'type'}]
+    matchups: [{type: Schema.ObjectId, ref: 'type'}],
 })
 
 TypeSchema
