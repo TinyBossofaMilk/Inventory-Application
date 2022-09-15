@@ -8,10 +8,10 @@ var Schema = mongoose.Schema;
 var PokemonSchema = new Schema({
     name: {type: String},
     type: {type: Schema.Types.ObjectID, ref:'type'},
+    ability: {type: Schema.Types.ObjectID, ref:'ability'},
     evolvesFrom: {type: Schema.Types.ObjectID, ref: 'pokemon'},
     evolvesTo: {type: Schema.Types.ObjectID, ref: 'pokemon'},
     desc: {type: String},
-    ability: {type: Schema.Types.ObjectID, ref:'ability'},
 
     height: {type: Number, min: 0},
     weight: {type: Number, min: 0}
