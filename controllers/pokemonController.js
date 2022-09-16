@@ -32,7 +32,7 @@ exports.pokemon_create_get = (req, res) => {
         } 
     }, function(err, results) {
         if(err) {return next(err)}
-        res.render('pokemon-form', {type: results.type});
+        res.render('pokemon-form', {title:'Add a Pokemon!', type: results.type});
     }
     )
 

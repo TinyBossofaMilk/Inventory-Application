@@ -34,7 +34,7 @@ function createType(type, cb){
         console.log('new type: ' + t);
         types.push(t);
         cb(null, t)
-    })
+    });
 };
 
 function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, weight){
@@ -133,25 +133,6 @@ function createTypes(cb){
     ], cb);
 }
 
-// [{"name":"Normal","immune":["Ghost"],"weaknesses":["Rock","Steel"],"strengths":[]},
-// {"name":"Fire","immune":[],"weaknesses":["Fire","Water","Rock","Dragon"],"strengths":["Grass","Ice","Bug","Steel"]},
-// {"name":"Water","immune":[],"weaknesses":["Water","Grass","Dragon"],"strengths":["Fire","Ground","Rock"]},
-// {"name":"Electric","immune":["Ground"],"weaknesses":["Electric","Grass","Dragon"],"strengths":["Water","Flying"]},
-// {"name":"Grass","immune":[],"weaknesses":["Fire","Grass","Poison","Flying","Bug","Dragon","Steel"],"strengths":["Water","Ground","Rock"]},
-// {"name":"Ice","immune":[],"weaknesses":["Fire","Water","Ice","Steel"],"strengths":["Grass","Ground","Flying","Dragon"]},
-// {"name":"Fighting","immune":["Ghost"],"weaknesses":["Poison","Flying","Psychic","Bug","Fairy"],"strengths":["Normal","Ice","Rock","Dark","Steel"]},
-// {"name":"Poison","immune":["Steel"],"weaknesses":["Poison","Ground","Rock","Ghost"],"strengths":["Grass","Fairy"]},
-// {"name":"Ground","immune":["Flying"],"weaknesses":["Grass","Bug"],"strengths":["Fire","Electric","Poison","Rock","Steel"]},
-// {"name":"Flying","immune":[],"weaknesses":["Electric","Rock","Steel"],"strengths":["Grass","Fighting","Bug"]},
-// {"name":"Psychic","immune":["Dark"],"weaknesses":["Psychic","Steel"],"strengths":["Fighting","Poison"]},
-// {"name":"Bug","immune":[],"weaknesses":["Fire","Fighting","Poison","Flying","Ghost","Steel","Fairy"],"strengths":["Grass","Psychic","Dark"]},
-// {"name":"Rock","immune":[],"weaknesses":["Fighting","Ground","Steel"],"strengths":["Fire","Ice","Flying","Bug"]},
-// {"name":"Ghost","immune":["Normal"],"weaknesses":["Dark"],"strengths":["Psychic","Ghost"]},
-// {"name":"Dragon","immune":["Fairy"],"weaknesses":["Steel"],"strengths":["Dragon"]},
-// {"name":"Dark","immune":[],"weaknesses":["Fighting","Dark","Fairy"],"strengths":["Psychic","Ghost"]},
-// {"name":"Steel","immune":[],"weaknesses":["Fire","Water","Electric","Steel"],"strengths":["Ice","Rock","Fairy"]},
-// {"name":"Fairy","immune":[],"weaknesses":["Fire","Poison","Steel"],"strengths":["Fighting","Dragon","Dark"]}]
-
 // abilities
 function createAbilities(cb){
     async.series([
@@ -192,7 +173,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 async.series([
     // createAbilities,
-    createTypes
+    // createTypes
 ],
 // Optional callback
 function(err, results) {
