@@ -13,7 +13,8 @@ const app = express();
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
-var dev_db_url = 'mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true';
+// mongodb+srv://tinybossofamilk:A1B2C3@sandbox.pik9tii.mongodb.net/?retryWrites=true&w=majority
+var dev_db_url = 'mongodb+srv://tinybossofamilk:A1B2C3@sandbox.pik9tii.mongodb.net/Pokemon-Inventory?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;

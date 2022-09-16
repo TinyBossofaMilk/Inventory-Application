@@ -21,13 +21,15 @@ const PKMNTYPES=[
 
 var TypeSchema = new Schema({
     name: {type: String, enum: PKMNTYPES},
-    matchups: [{type: Schema.ObjectId, ref: 'type'}],
+    strengths: [{type: String, enum: PKMNTYPES}],
+    weaknesses: [{type: String, enum: PKMNTYPES}],
+    immune: [{type: String, enum: PKMNTYPES}]
 })
 
 TypeSchema
 .virtual('url')
 .get(function () {
-    return '/types/';
+    return '/types';
 });
 
 module.exports = mongoose.model('Type', TypeSchema);

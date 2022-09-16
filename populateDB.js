@@ -1,20 +1,40 @@
 #! /usr/bin/env node
 
 const async = require('async');
-const Pokemon = require('../models/pokemon');
-const Type = require('../models/type');
-const Ability = require('../models/ability');
+const Pokemon = require('./models/pokemon');
+const Type = require('./models/type');
+const Ability = require('./models/ability');
 
 var abilities = [];
-var type = [];
+var types = [];
 var pkmn = [];
 
-function createAbilityObj(name, desc){
-    return new Ability({name: name, desc:desc});
+function createAbility(name, desc, cb){
+    var toAdd = new Ability({name: name, desc:desc});
+
+    toAdd.save(function (err){
+        if(err){
+            cb(err, null)
+            return;
+        }
+        console.log('new Ability: ' + toAdd);
+        abilities.push(toAdd);
+        cb(null, toAdd)
+    })
 };
 
-function createTypeObj(name, matchups){
-    return new Type({name: name, matchups: matchups});
+function createType(type, cb){
+    var t = new Type(type);
+
+    t.save(function (err){
+        if(err){
+            cb(err, null)
+            return;
+        }
+        console.log('new type: ' + t);
+        types.push(t);
+        cb(null, t)
+    })
 };
 
 function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, weight){
@@ -23,20 +43,164 @@ function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, w
 
 
 // types
-// ("normal", [{"rock": 0.5, "ghost": 0, "steel": 0.5}])
-// ("fire", [{"fire":0.5, "water": 0.5, "green":2, "ice":2, "bug":2, "rock":0.5, "dragon":0.5, "steel":2}])
+function createTypes(cb){
+    async.series([
+        function (callback){
+            createType({"name":"Normal","immune":["Ghost"],"weaknesses":["Rock","Steel"],"strengths":[]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Fire","immune":[],"weaknesses":["Fire","Water","Rock","Dragon"],"strengths":["Grass","Ice","Bug","Steel"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Water","immune":[],"weaknesses":["Water","Grass","Dragon"],"strengths":["Fire","Ground","Rock"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Electric","immune":["Ground"],"weaknesses":["Electric","Grass","Dragon"],"strengths":["Water","Flying"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Grass","immune":[],"weaknesses":["Fire","Grass","Poison","Flying","Bug","Dragon","Steel"],"strengths":["Water","Ground","Rock"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Ice","immune":[],"weaknesses":["Fire","Water","Ice","Steel"],"strengths":["Grass","Ground","Flying","Dragon"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Fighting","immune":["Ghost"],"weaknesses":["Poison","Flying","Psychic","Bug","Fairy"],"strengths":["Normal","Ice","Rock","Dark","Steel"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Poison","immune":["Steel"],"weaknesses":["Poison","Ground","Rock","Ghost"],"strengths":["Grass","Fairy"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Ground","immune":["Flying"],"weaknesses":["Grass","Bug"],"strengths":["Fire","Electric","Poison","Rock","Steel"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Flying","immune":[],"weaknesses":["Electric","Rock","Steel"],"strengths":["Grass","Fighting","Bug"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Psychic","immune":["Dark"],"weaknesses":["Psychic","Steel"],"strengths":["Fighting","Poison"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Bug","immune":[],"weaknesses":["Fire","Fighting","Poison","Flying","Ghost","Steel","Fairy"],"strengths":["Grass","Psychic","Dark"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Rock","immune":[],"weaknesses":["Fighting","Ground","Steel"],"strengths":["Fire","Ice","Flying","Bug"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Ghost","immune":["Normal"],"weaknesses":["Dark"],"strengths":["Psychic","Ghost"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Dragon","immune":["Fairy"],"weaknesses":["Steel"],"strengths":["Dragon"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Dark","immune":[],"weaknesses":["Fighting","Dark","Fairy"],"strengths":["Psychic","Ghost"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Steel","immune":[],"weaknesses":["Fire","Water","Electric","Steel"],"strengths":["Ice","Rock","Fairy"]},
+            callback)
+        },
+        function (callback){
+            createType({"name":"Fairy","immune":[],"weaknesses":["Fire","Poison","Steel"],"strengths":["Fighting","Dragon","Dark"]}, 
+            callback)
+        }
 
+
+        // function(callback) {
+        //     createType("normal", [{"rock": 0.5, "ghost": 0, "steel": 0.5}], callback)
+        // }, 
+        // function(callback) {
+        //     createType("fire", [{"fire":0.5, "water": 0.5, "green":2, "ice":2, "bug":2, "rock":0.5, "dragon":0.5, "steel":2}], callback)
+        // }, 
+        // function(callback) {
+        //     createType("water", [{"fire": 2}, {"water": 0.5}, {"grass":0.5}, ], callback)
+        // }, 
+        // function(callback) {
+        //     createType
+    ], cb);
+}
+
+// [{"name":"Normal","immune":["Ghost"],"weaknesses":["Rock","Steel"],"strengths":[]},
+// {"name":"Fire","immune":[],"weaknesses":["Fire","Water","Rock","Dragon"],"strengths":["Grass","Ice","Bug","Steel"]},
+// {"name":"Water","immune":[],"weaknesses":["Water","Grass","Dragon"],"strengths":["Fire","Ground","Rock"]},
+// {"name":"Electric","immune":["Ground"],"weaknesses":["Electric","Grass","Dragon"],"strengths":["Water","Flying"]},
+// {"name":"Grass","immune":[],"weaknesses":["Fire","Grass","Poison","Flying","Bug","Dragon","Steel"],"strengths":["Water","Ground","Rock"]},
+// {"name":"Ice","immune":[],"weaknesses":["Fire","Water","Ice","Steel"],"strengths":["Grass","Ground","Flying","Dragon"]},
+// {"name":"Fighting","immune":["Ghost"],"weaknesses":["Poison","Flying","Psychic","Bug","Fairy"],"strengths":["Normal","Ice","Rock","Dark","Steel"]},
+// {"name":"Poison","immune":["Steel"],"weaknesses":["Poison","Ground","Rock","Ghost"],"strengths":["Grass","Fairy"]},
+// {"name":"Ground","immune":["Flying"],"weaknesses":["Grass","Bug"],"strengths":["Fire","Electric","Poison","Rock","Steel"]},
+// {"name":"Flying","immune":[],"weaknesses":["Electric","Rock","Steel"],"strengths":["Grass","Fighting","Bug"]},
+// {"name":"Psychic","immune":["Dark"],"weaknesses":["Psychic","Steel"],"strengths":["Fighting","Poison"]},
+// {"name":"Bug","immune":[],"weaknesses":["Fire","Fighting","Poison","Flying","Ghost","Steel","Fairy"],"strengths":["Grass","Psychic","Dark"]},
+// {"name":"Rock","immune":[],"weaknesses":["Fighting","Ground","Steel"],"strengths":["Fire","Ice","Flying","Bug"]},
+// {"name":"Ghost","immune":["Normal"],"weaknesses":["Dark"],"strengths":["Psychic","Ghost"]},
+// {"name":"Dragon","immune":["Fairy"],"weaknesses":["Steel"],"strengths":["Dragon"]},
+// {"name":"Dark","immune":[],"weaknesses":["Fighting","Dark","Fairy"],"strengths":["Psychic","Ghost"]},
+// {"name":"Steel","immune":[],"weaknesses":["Fire","Water","Electric","Steel"],"strengths":["Ice","Rock","Fairy"]},
+// {"name":"Fairy","immune":[],"weaknesses":["Fire","Poison","Steel"],"strengths":["Fighting","Dragon","Dark"]}]
 
 // abilities
-// ("sturdy", "It cannot be knocked out with one hit.")
-// ("keen eye", "Prevents other Pokémon from lowering accuracy.")
-// ("Levitate", "Gives immunity to Ground type moves.")
-// ("Intimidate", "Lowers the foe's Attack stat.")
-// ("Inner Focus", "The Pokémon is protected from flinching.")
-// ("Blaze", "Powers up Fire-type moves in a pinch.")
-// ("Overgrow", "Powers up Grass-type moves in a pinch.")
-// ("Torrent", "Powers up Water-type moves in a pinch.")
+function createAbilities(cb){
+    async.series([
+        function(callback) {
+            createAbility("keen eye", "Prevents other Pokémon from lowering accuracy.", callback)
+        },
+        function(callback) {
+            createAbility("Levitate", "Gives immunity to Ground type moves.", callback)
+        },
+        function(callback) {
+            createAbility("Intimidate", "Lowers the foe's Attack stat.", callback)
+        },
+        function(callback) {
+            createAbility("Inner Focus", "The Pokémon is protected from flinching.", callback)
+        },
+        function(callback) {
+            createAbility("Blaze", "Powers up Fire-type moves in a pinch.", callback)
+        },
+        function(callback) {
+            createAbility("Overgrow", "Powers up Grass-type moves in a pinch.", callback)
+        },
+        function(callback) {
+            createAbility("Torrent", "Powers up Water-type moves in a pinch.", callback)
+        }
+    ],
+    cb);
+}
 
+
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb+srv://tinybossofamilk:A1B2C3@sandbox.pik9tii.mongodb.net/Pokemon-Inventory?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+
+async.series([
+    // createAbilities,
+    createTypes
+],
+// Optional callback
+function(err, results) {
+    if (err) {
+        console.log('FINAL ERR: '+err);
+    }
+    mongoose.connection.close();
+});
 
 // console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
 
@@ -48,12 +212,6 @@ function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, w
 //     return
 // }
 // */
-// var async = require('async')
-// var Book = require('./models/book')
-// var Author = require('./models/author')
-// var Genre = require('./models/genre')
-// var BookInstance = require('./models/bookinstance')
-
 
 // var mongoose = require('mongoose');
 // var mongoDB = userArgs[0];
@@ -61,11 +219,6 @@ function createpkmn(name, type, ability, evolvesFrom, evolvesTo, desc, height, w
 // mongoose.Promise = global.Promise;
 // var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// var authors = []
-// var genres = []
-// var books = []
-// var bookinstances = []
 
 // function authorCreate(first_name, family_name, d_birth, d_death, cb) {
 //   authordetail = {first_name:first_name , family_name: family_name }

@@ -23,7 +23,20 @@ exports.pokemon_get = (req, res) => {
 
 //GET create pokemon page
 exports.pokemon_create_get = (req, res) => {
-    res.render('pokemon-form');
+    async.parallel({
+        type: function (callback) {
+            Type.find(callback)
+        },
+        ability: function (callback) {
+            Ability.find(callback)
+        } 
+    }, function(err, results) {
+        if(err) {return next(err)}
+        res.render('pokemon-form', {type: results.type});
+    }
+    )
+
+
 };
 
 //POST create pokemon page
