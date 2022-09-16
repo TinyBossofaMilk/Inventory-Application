@@ -12,10 +12,9 @@ exports.types_list = function(req, res) {
         }
     }, function (err, results) {
         if (err) {return next(err);}
-        res.render('type-list');
 
-    }
-    )
+        res.render('type-list', {types: results.type});
+    })
 
 
 };
