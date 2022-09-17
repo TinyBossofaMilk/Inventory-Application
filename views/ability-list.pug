@@ -1,4 +1,9 @@
 extends layout
 
 block content
-  h1 #{title}
+  h1 Abilities List
+  div#ability-list
+  each ability in abilities_types
+    div.ability-card
+      div.title #{ability.name}
+      div.desc #{ability.desc}

@@ -5,7 +5,11 @@ const { body, validationResult } = require("express-validator");
 var async = require('async');
 
 exports.ability_list_get = function (req, res) {
-    res.render('ability-list');
+    Ability.find()
+    .exec(function (err, abilities_types){
+        if (err) {return next(err);}
+        res.render('ability-list', {abilities_types: abilities_types});
+    });
 };
 
 exports.ability_post = function (req, res) {

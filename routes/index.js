@@ -13,8 +13,10 @@ router.get('/', pokemon_controller.index);
 /* GET search page */
 router.get('/pkmn/search', pokemon_controller.pokemon_search_get);
 
-// router.get('/ability-list', ability_controller.ability_list_get);
+/* GET ability list page */
+router.get('/ability-list', ability_controller.ability_list_get);
 
+/* GET type list page */
 router.get('/type-list', type_controller.types_list);
 
 
