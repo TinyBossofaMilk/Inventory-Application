@@ -6,15 +6,9 @@ var async = require('async');
 
 exports.types_list = function(req, res) {
 
-    async.parallel({
-        type: function(callback) {
-            Type.find();
-        }
-    }, function (err, results) {
-        if (err) {return next(err);}
-
-        res.render('type-list', {types: results.type});
-    })
-
-
+    Type.find()
+        .exec(function (err, list_types){
+            if (err) {return next(err);}
+            res.render('type-list', {types_list: list_types});             
+        });
 };

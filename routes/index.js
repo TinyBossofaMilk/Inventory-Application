@@ -15,7 +15,7 @@ router.get('/pkmn/search', pokemon_controller.pokemon_search_get);
 
 // router.get('/ability-list', ability_controller.ability_list_get);
 
-// router.get('/type-list', type_controller.types_list);
+router.get('/type-list', type_controller.types_list);
 
 
 // GET create Pokemon page
