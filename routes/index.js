@@ -19,7 +19,6 @@ router.get('/ability-list', ability_controller.ability_list_get);
 /* GET type list page */
 router.get('/type-list', type_controller.types_list);
 
-
 // GET create Pokemon page
 router.get('/pkmn/create', pokemon_controller.pokemon_create_get);
 

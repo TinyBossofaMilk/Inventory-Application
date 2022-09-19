@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 
 // pokemon search page
 exports.pokemon_search_get = (req, res) => {
-    res.send("not yet implemented")
+    res.render('pokemon-search', {})
 };
 
 //view specific pokemon deets
@@ -32,11 +32,8 @@ exports.pokemon_create_get = (req, res) => {
         } 
     }, function(err, results) {
         if(err) {return next(err)}
-        res.render('pokemon-form', {title:'Add a Pokemon!', type: results.type});
-    }
-    )
-
-
+        res.render('pokemon-form', {title:'Add a Pokemon!', type_list: results.type});
+    })
 };
 
 //POST create pokemon page
