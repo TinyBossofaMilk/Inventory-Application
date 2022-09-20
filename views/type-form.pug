@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Type List
+  div#type-list
+    each type in types_list
+        div.type-card
+            div.title #{type.name}
+            div.strengths Strengths: 
+                each s in type.strengths
+                    span #{s}
+            div.weaknesses Weaknesses:
+                each w in type.weaknesses
+                    span #{w}

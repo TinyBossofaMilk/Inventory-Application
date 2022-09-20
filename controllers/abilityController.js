@@ -12,6 +12,20 @@ exports.ability_list_get = function (req, res) {
     });
 };
 
-exports.ability_post = function (req, res) {
-
+exports.ability_create_get = function (req, res) {
+    res.render('ability-form');
 };
+
+exports.ability_create_post = [
+    (req, res, next) =>  {
+        let ability = new Ability({
+            name: req.body.name,
+            desc: req.body.desc
+    });
+
+    Ability.save(function (err) {
+        if(err) {return next(err)}
+    });
+
+    res.render('ability-list');
+}]

@@ -13,11 +13,17 @@ router.get('/', pokemon_controller.index);
 /* GET search page */
 router.get('/pkmn/search', pokemon_controller.pokemon_search_get);
 
+/* GET type list page */
+router.get('/type-list', type_controller.types_list);
+
 /* GET ability list page */
 router.get('/ability-list', ability_controller.ability_list_get);
 
-/* GET type list page */
-router.get('/type-list', type_controller.types_list);
+// GET create ability page
+router.get('/ability/create', ability_controller.ability_create_get);
+
+// post create ability page
+router.post('/ability/create', ability_controller.ability_create_post);
 
 // GET create Pokemon page
 router.get('/pkmn/create', pokemon_controller.pokemon_create_get);
@@ -33,6 +39,9 @@ router.post('/pkmn/:id/profile', pokemon_controller.pokemon_update_post);
 
 // POST delete pokemon
 router.post('/pkmn/:id/profile', pokemon_controller.pokemon_update_post);
+
+
+
 
 // // GET catalog home page.
 // router.get('/', book_controller.index);  
