@@ -5,6 +5,7 @@ const Ability = require('../models/ability');
 const { body, validationResult } = require("express-validator");
 
 var async = require('async');
+const type = require('../models/type');
 
 // home page
 exports.index = function(req, res) {
@@ -37,9 +38,56 @@ exports.pokemon_create_get = (req, res) => {
 };
 
 //POST create pokemon page
-exports.pokemon_create_post = (req, res) => {
-    res.send("not yet implemented");
-};
+exports.pokemon_create_post = [
+    // Validate and sanitize fields.
+
+    body('name', 'Name must not be empty.').trim().isLength({min: 1}).escape(),
+    body('evolvesFrom', 'Evolves from field must not be empty.').trim().isLength({min: 1}).escape(),
+    body('evolvesTo', 'Evolves to field must not be empty.').trim().isLength({min: 1}).escape(),
+    body('desc', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
+    body('ability', 'Ability must not be empty.').trim().isLength({min: 1}).escape(),
+    body('height', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
+    body('weight', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
+    
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+        
+        let pokemon = new Pokemon({
+            name: req.body.name,
+            type: [req.body.type],
+            evolvesFrom: req.body.evolvesFrom,
+            evolvesTo: req.body.evolvesTo,
+            desc: req.body.desc,
+            ability: req.body.ability,
+            height: req.body.height,
+            weight: req.body.weight
+        });
+
+        if(res.body.type-2 != "(none)")
+            pokemon.type.push(res.body.type-2);
+
+        if(!errors.isEmpty()){
+            res.render('pokemon-form', {name:pokemon.name, 
+                type: pokemon.type, 
+                evolvesFrom: pokemon.evolvesFrom, 
+                evolvesTo: pokemon.evolvesTo, 
+                desc: pokemon.desc, 
+                ability: pokemon.ability, 
+                height: pokemon.height, 
+                weight: pokemon.weight,
+                errors: errors.array()
+            });
+            return;
+        }
+        else{   
+            Pokemon.save(function (err) {
+                if(err) {return next(err)}
+            }
+            );
+        }
+}]
 
 // delete a pokemon
 exports.pokemon_delete_post = (req, res) => {
