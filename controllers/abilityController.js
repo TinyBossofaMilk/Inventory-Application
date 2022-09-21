@@ -17,20 +17,28 @@ exports.ability_create_get = function (req, res) {
 };
 
 exports.ability_create_post = [
-    body('name').trim().isLength({min: 1}).escape(),
-    body('desc').trim().isLength({min: 1}).escape(),
+    body("name", "Ability name required.").trim().isLength({min:1}).escape(),
+    body("desc", "Ability description required.").trim().isLength({min:1}).escape(),
 
     (req, res, next) =>  {
-        
+        const errors = validationResult(req);
+
         let ability = new Ability({
             name: req.body.name,
             desc: req.body.desc
         });
 
-        Ability.save(function (err) {
-            
-            if(err) {return next(err)}
-        });
+        if(!errors.isEmpty()){
+            res.render("ability-form", {
+                errors: errors.array()
+            })
+        }
+        else{
+            Ability.save(function (err) {
+                if(err) {return next(err)}
+            });
+        }
+
 
         res.redirect('ability-list');
 }]
