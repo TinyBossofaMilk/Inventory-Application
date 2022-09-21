@@ -21,6 +21,7 @@ exports.ability_create_post = [
     body('desc').trim().isLength({min: 1}).escape(),
 
     (req, res, next) =>  {
+        
         let ability = new Ability({
             name: req.body.name,
             desc: req.body.desc

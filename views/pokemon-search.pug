@@ -3,11 +3,12 @@ extends layout
 block content
   h1 Pokemon Search Page
 
-  input#search(type='text')
+  label(for="search") Name
+  input#search(type='text' name='search')
 
   div.type-selection
     each type in type_list
-      //- button #{type}
+      button #{type.name}
 
   h2 Display
   div.display
