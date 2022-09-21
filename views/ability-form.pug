@@ -12,3 +12,8 @@ block content
       input#name(type='text' name='desc' required=true)
 
     button(type='submit') Submit
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

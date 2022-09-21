@@ -2,3 +2,12 @@ extends layout
 
 block content
   h1 Pokemon Search Page
+
+  input#search(type='text')
+
+  div.type-selection
+    each type in type_list
+      //- button #{type}
+
+  h2 Display
+  div.display

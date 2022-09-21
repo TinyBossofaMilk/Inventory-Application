@@ -14,7 +14,21 @@ exports.index = function(req, res) {
 
 // pokemon search page
 exports.pokemon_search_get = (req, res) => {
-    res.render('pokemon-search', {})
+    async.parallel({
+        type: function (callback) {
+            Type.find(callback)
+        },
+        ability: function (callback) {
+            Ability.find(callback)
+        },
+        pokemon: function (callback) {
+            Pokemon.find(callback)
+        }
+    }, function (err, results) {
+        if(err) {return next(err)}
+        res.render('pokemon-search', {type_list: results.type})
+    }
+    )
 };
 
 //view specific pokemon deets

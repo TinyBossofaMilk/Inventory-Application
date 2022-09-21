@@ -17,15 +17,19 @@ exports.ability_create_get = function (req, res) {
 };
 
 exports.ability_create_post = [
+    body('name').trim().isLength({min: 1}).escape(),
+    body('desc').trim().isLength({min: 1}).escape(),
+
     (req, res, next) =>  {
         let ability = new Ability({
             name: req.body.name,
             desc: req.body.desc
-    });
+        });
 
-    Ability.save(function (err) {
-        if(err) {return next(err)}
-    });
+        Ability.save(function (err) {
+            
+            if(err) {return next(err)}
+        });
 
-    res.render('ability-list');
+        res.redirect('ability-list');
 }]
