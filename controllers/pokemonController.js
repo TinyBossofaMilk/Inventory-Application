@@ -53,20 +53,20 @@ exports.pokemon_create_get = (req, res) => {
 
 //POST create pokemon page
 exports.pokemon_create_post = [
-    // Validate and sanitize fields.
 
-    // body('name', 'Name must not be empty.').trim().isLength({min: 1}).escape(),
-    // body('evolvesFrom', 'Evolves from field must not be empty.').trim().isLength({min: 1}).escape(),
-    // body('evolvesTo', 'Evolves to field must not be empty.').trim().isLength({min: 1}).escape(),
-    // body('desc', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
-    // body('ability', 'Ability must not be empty.').trim().isLength({min: 1}).escape(),
-    // body('height', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
-    // body('weight', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
+    // Validate and sanitize fields.
+    body('name', 'Name must not be empty.').trim().isLength({min: 1}).escape(),
+    body('evolvesFrom', 'Evolves from field must not be empty.').trim().isLength({min: 1}).escape(),
+    body('evolvesTo', 'Evolves to field must not be empty.').trim().isLength({min: 1}).escape(),
+    body('desc', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
+    body('ability', 'Ability must not be empty.').trim().isLength({min: 1}).escape(),
+    body('height', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
+    body('weight', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
         // Extract the validation errors from a request.
-        // const errors = validationResult(req);
+        const errors = validationResult(req);
         
         let pokemon = new Pokemon({
             name: req.body.name,
@@ -82,29 +82,27 @@ exports.pokemon_create_post = [
         if(res.body.type_2 != "(none)")
             pokemon.type.push(res.body.type_2);
 
-        // if(!errors.isEmpty()){
-            // res.render('pokemon-form', {name:pokemon.name, 
-            //     type: pokemon.type, 
-            //     evolvesFrom: pokemon.evolvesFrom, 
-            //     evolvesTo: pokemon.evolvesTo, 
-            //     desc: pokemon.desc, 
-            //     ability: pokemon.ability, 
-            //     height: pokemon.height, 
-            //     weight: pokemon.weight,
-            //     errors: errors.array()
-            // });
-            //     return;
-            // }
-            // else{   
-                Pokemon.save(function (err) {
+        if(!errors.isEmpty()){
+            res.render('pokemon-form', {name:pokemon.name, 
+                type: pokemon.type, 
+                evolvesFrom: pokemon.evolvesFrom, 
+                evolvesTo: pokemon.evolvesTo, 
+                desc: pokemon.desc, 
+                ability: pokemon.ability, 
+                height: pokemon.height, 
+                weight: pokemon.weight,
+                errors: errors.array()
+            });
+                return;
+            }
+            else{   
+                pokemon.save(function (err) {
                     if(err) {return next(err)}
                 }
                 );
                 
-            console.log('here')
-            res.render("home");
-            // }
-}]
+            }
+}];
 
 // delete a pokemon
 exports.pokemon_delete_post = (req, res) => {

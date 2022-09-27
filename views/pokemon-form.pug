@@ -2,7 +2,8 @@ extends layout
 
 block content
   h1 #{title}
-  form(action="POST")
+  
+  form(method='POST' action='')
     div.form-group
       label(for='name') Name:
       input#name(type='text' name='name' required='true')

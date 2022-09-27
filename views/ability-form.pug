@@ -2,14 +2,14 @@ extends layout
 
 block content
   h1 Abilities Form
-  form(action="POST")
+  form(method='POST' action='')
     div.form-group
       label(for='name') Name:
       input#name(type='text' name='name' required=true)
 
     div.form-group
       label(for='desc') Description:
-      input#name(type='text' name='desc' required=true)
+      input#desc(type='text' name='desc' required=true)
 
     button(type='submit') Submit
 
