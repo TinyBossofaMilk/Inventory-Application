@@ -56,8 +56,8 @@ exports.pokemon_create_post = [
 
     // Validate and sanitize fields.
     body('name', 'Name must not be empty.').trim().isLength({min: 1}).escape(),
-    body('evolvesFrom', 'Evolves from field must not be empty.').trim().isLength({min: 1}).escape(),
-    body('evolvesTo', 'Evolves to field must not be empty.').trim().isLength({min: 1}).escape(),
+    body('evolvesFrom', 'Evolves from field must not be empty. asdlkfas').escape(),
+    body('evolvesTo', 'Evolves to field must not be empty.').escape(),
     body('desc', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
     body('ability', 'Ability must not be empty.').trim().isLength({min: 1}).escape(),
     body('height', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
@@ -68,7 +68,7 @@ exports.pokemon_create_post = [
         // Extract the validation errors from a request.
         const errors = validationResult(req);
         
-        let pokemon = new Pokemon({
+        const pokemon = new Pokemon({
             name: req.body.name,
             type: [req.body.type],
             evolvesFrom: req.body.evolvesFrom,
@@ -79,29 +79,26 @@ exports.pokemon_create_post = [
             weight: req.body.weight
         });
 
-        if(res.body.type_2 != "(none)")
-            pokemon.type.push(res.body.type_2);
+        // if(res.body.type_2 != "(none)")
+        //     pokemon.type.push(res.body.type_2);
 
         if(!errors.isEmpty()){
-            res.render('pokemon-form', {name:pokemon.name, 
-                type: pokemon.type, 
-                evolvesFrom: pokemon.evolvesFrom, 
-                evolvesTo: pokemon.evolvesTo, 
-                desc: pokemon.desc, 
-                ability: pokemon.ability, 
-                height: pokemon.height, 
-                weight: pokemon.weight,
-                errors: errors.array()
+            Type.find()
+                .exec( function (err, type) {
+                    if (err) {return next(err);}                    
+                    res.render('pokemon-form', {
+                        type_list: type,
+                        errors: errors.array(),
+                        pokemon: pokemon
+                    });
+                })
+            return;
+        }
+        else{   
+            pokemon.save(function (err) {
+                if(err) {return next(err)}
             });
-                return;
-            }
-            else{   
-                pokemon.save(function (err) {
-                    if(err) {return next(err)}
-                }
-                );
-                
-            }
+        }
 }];
 
 // delete a pokemon

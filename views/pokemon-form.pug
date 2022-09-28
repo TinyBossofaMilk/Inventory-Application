@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  h1 #{title}
+  h1 Add a Pokemon!
   
   form(method='POST' action='')
     div.form-group
       label(for='name') Name:
-      input#name(type='text' name='name' required='true')
+      input#name(type='text' name='name' required='true'  )
 
     div.form-group
       label(for='type') Type: 
@@ -19,15 +19,15 @@ block content
       select#type_2(type='select' name='type_2')
         option (none)
         each type in type_list
-          option #{type.name}
+          option(value=type.name) #{type.name}
 
     div.form-group
       label(for='evolvesFrom') Evolves From:
-      input#evolvesFrom(type='search' name='text')
+      input#evolvesFrom(type='search' name='evolvesFrom')
 
     div.form-group
       label(for='evolvesTo') Evolves To:
-      input#evolvesTo(type='search' name='text')
+      input#evolvesTo(type='search' name='evolvesTo')
 
     div.form-group
       label(for='desc') Description:
@@ -46,3 +46,9 @@ block content
       input#weight(type='number' name='weight' required='true')
 
     button(type='submit') Submit
+
+    
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg
