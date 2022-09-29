@@ -1,4 +1,5 @@
 const Ability = require('../models/ability');
+const Pokemon = require('../models/pokemon')
 
 const { body, validationResult } = require("express-validator");
 
@@ -44,3 +45,28 @@ exports.ability_create_post = [
 
         res.redirect('ability-list');
 }]
+
+exports.ability_detail_get = function (req, res, next) {
+    async.parallel({
+        ability: function(callback) {
+            Ability.findById(req.params.id)
+            .exec(callback);
+        },
+        pokemon: function(callback) {
+            Pokemon.find({ability: req.params.id})
+            .exec(callback);
+        }
+    }, function (err, results) {
+        if(err) {return next(err);}
+        if(results.ability = null){
+            const err = new Error("Ability not found")
+            err.status = 404;
+            return next(err);
+        }
+
+        res.render('ability-detail', {
+            ability: results.ability,
+            pokemon_list : results.pokemon,
+        })
+    });
+}

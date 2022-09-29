@@ -5,5 +5,5 @@ block content
   div#ability-list
   each ability in abilities_types
     div.ability-card
-      div.title #{ability.name}
+      a.title(href=ability.url) #{ability.name}
       div.desc #{ability.desc}

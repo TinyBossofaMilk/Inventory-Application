@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 #{ability.name}
+  div#ability-list
+    div #{ability.desc}
+
+a(href=ability.url+'/update') Update Ability
+a(href=ability.url+'/delete') Delete Ability

@@ -6,7 +6,7 @@ block content
   form(method='POST' action='')
     div.form-group
       label(for='name') Name:
-      input#name(type='text' name='name' required='true'  )
+      input#name(type='text' name='name' required='true' value=(undefined===pokemon ? '' : pokemon.name) )
 
     div.form-group
       label(for='type') Type: 

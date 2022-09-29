@@ -5,7 +5,6 @@ const Ability = require('../models/ability');
 const { body, validationResult } = require("express-validator");
 
 var async = require('async');
-const type = require('../models/type');
 
 // home page
 exports.index = function(req, res) {
@@ -26,9 +25,8 @@ exports.pokemon_search_get = (req, res) => {
         }
     }, function (err, results) {
         if(err) {return next(err)}
-        res.render('pokemon-search', {type_list: results.type})
-    }
-    )
+        res.render('pokemon-search', {pokemon_list: results.pokemon, type_list: results.type})
+    })
 };
 
 //view specific pokemon deets
@@ -60,8 +58,8 @@ exports.pokemon_create_post = [
     body('evolvesTo', 'Evolves to field must not be empty.').escape(),
     body('desc', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
     body('ability', 'Ability must not be empty.').trim().isLength({min: 1}).escape(),
-    body('height', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
-    body('weight', 'Ability must not be empty.').trim().isNumeric({min:0}).escape(),
+    body('height', 'Height must not be empty.').trim().isNumeric({min:0}).escape(),
+    body('weight', 'Weight must not be empty.').trim().isNumeric({min:0}).escape(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -97,6 +95,7 @@ exports.pokemon_create_post = [
         else{   
             pokemon.save(function (err) {
                 if(err) {return next(err)}
+                res.redirect("home")
             });
         }
 }];

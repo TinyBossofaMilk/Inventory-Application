@@ -10,11 +10,16 @@ var type_controller = require('../controllers/typeController.js');
 /* GET home page. */
 router.get('/', pokemon_controller.index);
 
-/* GET search page */
-router.get('/pkmn/search', pokemon_controller.pokemon_search_get);
+
+
+/* TYPES */
 
 /* GET type list page */
 router.get('/type-list', type_controller.types_list);
+
+
+
+/* ABILITY */
 
 /* GET ability list page */
 router.get('/ability-list', ability_controller.ability_list_get);
@@ -22,8 +27,23 @@ router.get('/ability-list', ability_controller.ability_list_get);
 // GET create ability page
 router.get('/ability/create', ability_controller.ability_create_get);
 
-// post create ability page
+// POST create ability page
 router.post('/ability/create', ability_controller.ability_create_post);
+
+/* GET create ability details */
+// router.get('/ability/:id', ability_controller.ability_detail_get)
+
+/* GET create ability details */
+// router.get('/ability/:id/update', ability_controller.ability_detail_update)
+
+/* GET create ability details */
+// router.get('/ability/:id/delete', ability_controller.ability_detail_delete)
+
+
+/* POKEMON */
+
+/* GET search page */
+router.get('/pkmn/search', pokemon_controller.pokemon_search_get);
 
 // GET create Pokemon page
 router.get('/pkmn/create', pokemon_controller.pokemon_create_get);

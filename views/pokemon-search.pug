@@ -11,4 +11,7 @@ block content
       button #{type.name}
 
   h2 Display
+
   div.display
+    each pkmn in pokemon_list
+      div #{pkmn.name}

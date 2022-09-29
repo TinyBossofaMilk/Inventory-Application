@@ -10,7 +10,7 @@ var AbilitySchema = new Schema({
 AbilitySchema
 .virtual('url')
 .get(function () {
-    return '/ability';
+    return '/ability/' + this._id;
 });
 
 module.exports = mongoose.model('Ability', AbilitySchema);
