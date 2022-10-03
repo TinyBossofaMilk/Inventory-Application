@@ -58,27 +58,22 @@ router.get('/pkmn/create', pokemon_controller.pokemon_create_get);
 router.post('/pkmn/create', pokemon_controller.pokemon_create_post);
 
 // GET pokemon profile
-router.get('/pkmn/:id/profile', pokemon_controller.pokemon_get);
+router.get('/pkmn/:id', pokemon_controller.pokemon_get);
 
 // POST pokemon profile
-router.post('/pkmn/:id/profile', pokemon_controller.pokemon_update_post);
+router.post('/pkmn/:id', pokemon_controller.pokemon_update_post);
+
+// GET pokemon update
+router.get('/pkmn/:id/update', pokemon_controller.pokemon_update_get);
+
+// POST pokemon update
+router.post('/pkmn/:id/update', pokemon_controller.pokemon_update_post);
+
+// GET delete pokemon
+router.get('/pkmn/:id/delete', pokemon_controller.pokemon_delete_get);
 
 // POST delete pokemon
-router.post('/pkmn/:id/profile', pokemon_controller.pokemon_update_post);
+router.post('/pkmn/:id/delete', pokemon_controller.pokemon_delete_post);
 
-
-
-
-// // GET catalog home page.
-// router.get('/', book_controller.index);  
-
-// // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
-// router.get('/book/create', book_controller.book_create_get);
-
-// // POST request for creating Book.
-// router.post('/book/create', book_controller.book_create_post);
-
-// // GET request to delete Book.
-// router.get('/book/:id/delete', book_controller.book_delete_get);
 
 module.exports = router;

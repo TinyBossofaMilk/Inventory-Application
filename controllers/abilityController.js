@@ -156,12 +156,6 @@ exports.ability_delete_get = (req, res, next) => {
 exports.ability_delete_post = (req, res, next) => {
     Ability.findByIdAndDelete(req.params.id, function deleteAbility(err) {
         if(err) return next(err);
-
         res.redirect('/ability-list');
-        // Ability.find().exec((err, ability_list) => {
-        //     if(err) return next(err);
-
-        //     res.render('ability-list', {ability_list: ability_list});
-        // })
     });
 };

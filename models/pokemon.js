@@ -20,7 +20,7 @@ var PokemonSchema = new Schema({
 PokemonSchema
 .virtual('url')
 .get(function () {
-    return '/catalog/pkmn-detail'
+    return '/pkmn/' + this._id;
 });
 
 // Export model.

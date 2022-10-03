@@ -14,4 +14,5 @@ block content
 
   div.display
     each pkmn in pokemon_list
-      div #{pkmn.name}
+      a.name(href=pkmn.url) #{pkmn.name}
+      br

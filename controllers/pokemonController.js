@@ -29,9 +29,14 @@ exports.pokemon_search_get = (req, res) => {
     })
 };
 
-//view specific pokemon deets
+//GET Pokemon profile page
 exports.pokemon_get = (req, res) => {
-    res.send("not yet implemented")
+    Pokemon.findById(req.params.id).exec(
+        function (err, pokemon) {
+            if(err) return next(err);
+            res.render('pokemon-detail', {pokemon: pokemon})
+        }
+    );
 };
 
 //GET create pokemon page
@@ -100,36 +105,22 @@ exports.pokemon_create_post = [
         }
 }];
 
+// GET pokemon update form
+exports.pokemon_update_get = (req, res) => {
+
+};
+
+// POST pokemon update form
+exports.pokemon_update_post = [
+    // res.send("not yet implemented")
+]
+
+// GET pokemon delete form
+exports.pokemon_delete_get = (req, res, next) => {
+    res.send("not yet implemented")
+}
+
 // delete a pokemon
 exports.pokemon_delete_post = (req, res) => {
     res.send("not yet implemented")
 };
-
-// update individual pkmn details
-exports.pokemon_update_post = (req, res) => {
-    res.send("not yet implemented")
-};
-
-
-
-// exports.index = function(req, res) {
-//     async.parallel({
-//         book_count: function(callback) {
-//             Book.countDocuments({},callback);
-//         },
-//         book_instance_count: function(callback) {
-//             BookInstance.countDocuments({},callback);
-//         },
-//         book_instance_available_count: function(callback) {
-//             BookInstance.countDocuments({status:'Available'},callback);
-//         },
-//         author_count: function(callback) {
-//             Author.countDocuments({},callback);
-//         },
-//         genre_count: function(callback) {
-//             Genre.countDocuments({},callback);
-//         },
-//     }, function(err, results) {
-//         res.render('index', { title: 'Local Library Home', error: err, data: results });
-//     });
-// };

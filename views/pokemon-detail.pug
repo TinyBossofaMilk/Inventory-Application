@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 #{pokemon.name}
+  div#desc Description: #{pokemon.desc}
+  div#ability Ability: #{pokemon.ability}
+  div#evolvesFrom Evolves from: #{pokemon.evolvesFrom}
+  div#evolvesTo Evolves to: #{pokemon.evolvesTo}
+  div#height Height: #{pokemon.height}
+  div#weight Weight: #{pokemon.weight}
+
+  a(href=pokemon.url+'/update') Update
+  a(href=pokemon.url+'/delete') Delete
