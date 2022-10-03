@@ -1,4 +1,14 @@
 extends layout
 
 block content
-  div Pokemon Delete Page
+  form(method='POST' action='')
+    h1 Are you sure you want to delete #{pokemon.name}?
+    div.card
+        h1 #{pokemon.name}
+        div#desc Description: #{pokemon.desc}
+        div#ability Ability: #{pokemon.ability}
+        div#evolvesFrom Evolves from: #{pokemon.evolvesFrom}
+        div#evolvesTo Evolves to: #{pokemon.evolvesTo}
+        div#height Height: #{pokemon.height}
+        div#weight Weight: #{pokemon.weight}
+    button(type='submit') Yes

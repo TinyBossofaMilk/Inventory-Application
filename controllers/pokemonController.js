@@ -117,7 +117,11 @@ exports.pokemon_update_post = [
 
 // GET pokemon delete form
 exports.pokemon_delete_get = (req, res, next) => {
-    res.send("not yet implemented")
+    Pokemon.findById(req.params.id)
+        .exec((err, pokemon) => {
+        if(err) return next(err);
+        res.render('pokemon-delete', {pokemon:pokemon})
+    });
 }
 
 // delete a pokemon

@@ -7,8 +7,3 @@ block content
       h2 #{ability.name}
       div #{ability.desc}
     button(type='submit') Yes
-
-  if errors 
-    ul
-      for error in errors
-        li!= error.msg
