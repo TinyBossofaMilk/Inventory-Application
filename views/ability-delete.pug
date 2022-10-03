@@ -3,8 +3,10 @@ extends layout
 block content
   form(method='POST' action='')
     h1 Are you sure you want to delete #{ability.name}?
+    div.ability-card
+      h2 #{ability.name}
+      div #{ability.desc}
     button(type='submit') Yes
-    button() No
 
   if errors 
     ul

@@ -7,6 +7,7 @@ var async = require('async');
 
 exports.ability_list_get = function (req, res) {
     Ability.find()
+    .sort({name:1})
     .exec(function (err, abilities_types){
         if (err) {return next(err);}
         res.render('ability-list', {abilities_types: abilities_types});
@@ -40,10 +41,10 @@ exports.ability_create_post = [
         else{
             ability.save(function (err) {
                 if(err) {return next(err)}
+                res.redirect(ability.url);
             });
         }
 
-        res.redirect('ability-list');
 }]
 
 exports.ability_detail_get = function (req, res, next) {
@@ -67,7 +68,6 @@ exports.ability_detail_get = function (req, res, next) {
                 err.status = 404;
                 return next(err);
             }
-            console.log(results.ability);
 
             // Successful, so render.
             res.render("ability-detail", {
@@ -141,9 +141,6 @@ exports.ability_update_post = [
             // Data from form is valid. Update record.
             Ability.findByIdAndUpdate(req.params.id, ability, {}, (err, updatedAbility) => {
                 if(err) return next(err);
-                console.log("here");
-
-                // res.redirect(updatedAbility.url);
                 res.redirect(updatedAbility.url);
             })
         }
@@ -151,12 +148,20 @@ exports.ability_update_post = [
 ];
 
 exports.ability_delete_get = (req, res, next) => {
-    Ability.findById(req.params.id).exec(
+    Ability.findById(req.params.id).exec((err, ability) => {
         res.render('ability-delete', {ability: ability})
-    )
+    });
 };
 
 exports.ability_delete_post = (req, res, next) => {
-    Ability.findByIdAndDelete(req.params.id);
-    res.render('ability-list');
+    Ability.findByIdAndDelete(req.params.id, function deleteAbility(err) {
+        if(err) return next(err);
+
+        res.redirect('/ability-list');
+        // Ability.find().exec((err, ability_list) => {
+        //     if(err) return next(err);
+
+        //     res.render('ability-list', {ability_list: ability_list});
+        // })
+    });
 };
