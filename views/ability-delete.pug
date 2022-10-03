@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  form(method='POST' action='')
+    h1 Are you sure you want to delete #{ability.name}?
+    button(type='submit') Yes
+    button() No
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

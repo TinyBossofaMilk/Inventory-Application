@@ -33,11 +33,17 @@ router.post('/ability/create', ability_controller.ability_create_post);
 /* GET ability details page */
 router.get('/ability/:id', ability_controller.ability_detail_get)
 
-/* GET create ability details */
-// router.get('/ability/:id/update', ability_controller.ability_detail_update)
+/* GET update ability details */
+router.get('/ability/:id/update', ability_controller.ability_update_get)
 
-/* GET create ability details */
-// router.get('/ability/:id/delete', ability_controller.ability_detail_delete)
+/* POST update ability details */
+router.post('/ability/:id/update', ability_controller.ability_update_post)
+
+/* GET delete ability confirmation */
+router.get('/ability/:id/delete', ability_controller.ability_delete_get)
+
+/* POST delete ability confirmation */
+router.post('/ability/:id/delete', ability_controller.ability_delete_post)
 
 
 /* POKEMON */

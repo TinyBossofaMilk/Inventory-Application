@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Updating #{ability.name}
+  form(method='POST' action='')
+    div.form-group
+      label(for='name') Name:
+      input#name(type='text' name='name' required=true value=ability.name)
+
+    div.form-group
+      label(for='desc') Description:
+      input#desc(type='text' name='desc' required=true value=ability.desc)
+
+    button(type='submit') Update
+    button(type='') Cancel
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

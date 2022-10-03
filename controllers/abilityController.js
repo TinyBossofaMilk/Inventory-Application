@@ -14,7 +14,7 @@ exports.ability_list_get = function (req, res) {
 };
 
 exports.ability_create_get = function (req, res) {
-    res.render('ability-form');
+    res.render('ability-form', {title:"Add an Ability"});
 };
 
 exports.ability_create_post = [
@@ -68,56 +68,15 @@ exports.ability_detail_get = function (req, res, next) {
                 return next(err);
             }
             console.log(results.ability);
-            // console.log(results.ability.name);
-            // console.log(results.ability.desc);
 
             // Successful, so render.
             res.render("ability-detail", {
-                // name: results.ability.name,
-                // desc: results.ability.name
                 ability: results.ability
             })
         }
     )
 
 }
-// Display detail page for a specific book.
-// exports.book_detail = (req, res, next) => {
-//     async.parallel(
-//       {
-//         book(callback) {
-//           Book.findById(req.params.id)
-//             .populate("author")
-//             .populate("genre")
-//             .exec(callback);
-//         },
-//         book_instance(callback) {
-//           BookInstance.find({ book: req.params.id }).exec(callback);
-//         },
-//       },
-//       (err, results) => {
-//         if (err) {
-//           return next(err);
-//         }
-//         if (results.book == null) {
-//           // No results.
-//           const err = new Error("Book not found");
-//           err.status = 404;
-//           return next(err);
-//         }
-//         // Successful, so render.
-//         res.render("book_detail", {
-//           title: results.book.title,
-//           book: results.book,
-//           book_instances: results.book_instance,
-//         });
-//       }
-//     );
-//   };
-  
-
-
-
 // async.parallel({
 //     ability: function(callback) {
 //         // console.log(req.params.id);
@@ -143,4 +102,61 @@ exports.ability_detail_get = function (req, res, next) {
 //     })
 // });
 
+exports.ability_update_get = function (req, res, next) {
+    Ability.findById(req.params.id).exec(
+        function (err, ability){
+            res.render('ability-form', {title: "Update Ability: " + ability.name, ability: ability})
+        }
+    )
+};
 
+exports.ability_update_post = [
+    
+    // Validate and sanitize fields.
+    body("name", "Ability name required.").trim().isLength({min:1}).escape(),
+    body("desc", "Ability description required.").trim().isLength({min:1}).escape(),
+    
+    // Process request after validation and sanitation
+    (req, res, next) =>  {
+
+        // Extract the validation errors from a request
+        const errors = validationResult(req);
+
+        // Create an Ability object with the escaped/trimmed data and old id.
+        const ability = new Ability({
+            name: req.body.name,
+            desc: req.body.desc,
+            _id: req.params.id
+        });
+
+        if(!errors.isEmpty()){
+            res.render("ability-update", {
+                title: "Update Ability:" + ability.name,
+                ability: ability,
+                errors: errors.array()
+            })
+            return;
+        }
+        else{
+            // Data from form is valid. Update record.
+            Ability.findByIdAndUpdate(req.params.id, ability, {}, (err, updatedAbility) => {
+                if(err) return next(err);
+                console.log("here");
+
+                // res.redirect(updatedAbility.url);
+                res.redirect(updatedAbility.url);
+            })
+        }
+    }
+];
+
+exports.ability_delete_get = (req, res, next) => {
+    Ability.findById(req.params.id).exec(
+        res.render('ability-delete', {ability: ability})
+    )
+};
+
+exports.ability_delete_post = (req, res, next) => {
+    Ability.findByIdAndDelete(req.params.id);
+    res.render('ability-list');
+};
