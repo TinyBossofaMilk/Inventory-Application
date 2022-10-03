@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 #{ability.name}
+  h1.title #{ability.name}
   div#ability-list
-    div #{ability.desc}
+    div.desc #{ability.desc}
 
-a(href=ability.url+'/update') Update Ability
-a(href=ability.url+'/delete') Delete Ability
+  a(href=ability.url+'/update') Update Ability
+  a(href=ability.url+'/delete') Delete Ability

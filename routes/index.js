@@ -30,8 +30,8 @@ router.get('/ability/create', ability_controller.ability_create_get);
 // POST create ability page
 router.post('/ability/create', ability_controller.ability_create_post);
 
-/* GET create ability details */
-// router.get('/ability/:id', ability_controller.ability_detail_get)
+/* GET ability details page */
+router.get('/ability/:id', ability_controller.ability_detail_get)
 
 /* GET create ability details */
 // router.get('/ability/:id/update', ability_controller.ability_detail_update)
