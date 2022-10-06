@@ -53,12 +53,11 @@ exports.ability_detail_get = function (req, res, next) {
             ability(callback){
                 Ability.findById(req.params.id)
                     .exec(callback);
+            },
+            pokemon_list(callback) {
+                Pokemon.find({ability: req.params.id})
+                    .exec(callback);
             }
-            // ,
-            // pokemon(callback){
-            //     Pokemon.find({ability: req.params.id})
-            //         .exec(callback);
-            // }
         },
         (err, results) => {
             if(err) return next(err);
@@ -69,14 +68,16 @@ exports.ability_detail_get = function (req, res, next) {
                 return next(err);
             }
 
+            // console.log(pokemon_list)
+            
             // Successful, so render.
             res.render("ability-detail", {
-                ability: results.ability
+                ability: results.ability, 
+                pokemon_list: results.pokemon_list
             })
         }
     )
-
-}
+};
 // async.parallel({
 //     ability: function(callback) {
 //         // console.log(req.params.id);
@@ -101,6 +102,63 @@ exports.ability_detail_get = function (req, res, next) {
 //         ability: results.ability
 //     })
 // });
+
+/*
+// Display detail page for a specific Genre.
+exports.genre_detail = (req, res, next) => {
+  async.parallel(
+    {
+      genre(callback) {
+        Genre.findById(req.params.id).exec(callback);
+      },
+
+      genre_books(callback) {
+        Book.find({ genre: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.genre == null) {
+        // No results.
+        const err = new Error("Genre not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render
+      res.render("genre_detail", {
+        title: "Genre Detail",
+        genre: results.genre,
+        genre_books: results.genre_books,
+      });
+    }
+  );
+};
+
+
+
+The ID of the required genre record is encoded at the end of the URL and extracted automatically based on the route definition (/genre/:id). 
+The ID is accessed within the controller via the request parameters: req.params.id. 
+It is used in Genre.findById() to get the current genre. 
+It is also used to get all Book objects that have the genre ID in their genre field: Book.find({ 'genre': req.params.id }).
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.ability_update_get = function (req, res, next) {
     Ability.findById(req.params.id).exec(

@@ -4,6 +4,12 @@ block content
   h1.title #{ability.name}
   div#ability-list
     div.desc #{ability.desc}
+  div#pokemon-list
+    h2 Pokemon with #{ability.name}
+    each pkmn in pokemon_list
+      div #{pkmn.name}
+    else
+      p There are no Pokemon in the archive with this ability! Be the first to add one!
 
   a(href=ability.url+'/update') Update Ability
   a(href=ability.url+'/delete') Delete Ability
